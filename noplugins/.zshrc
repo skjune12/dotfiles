@@ -1,3 +1,7 @@
+#------------------
+# Default Settings
+#------------------
+
 # Set up the prompt
 
 autoload -Uz promptinit
@@ -57,3 +61,25 @@ alias egrep="egrep --color=auto"
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
+alias open="xdg-open"
+
+#--------------------
+# version management
+#--------------------
+
+# gvm
+[[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
+
+# golang
+export GOPATH=$HOME/.golang
+export PATH=$HOME/.golang:$PATH
+
+# rbenv
+export PATH=$"$PATH:$HOME/.rbenv/bin"
+eval "$(rbenv init -)"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PATH:$PYENV_ROOT/bin:"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

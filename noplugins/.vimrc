@@ -2,6 +2,9 @@
 "# default settings #
 "#------------------#
 
+" disable filetype
+filetype off
+
 " encoding
 set encoding=utf-8
 set termencoding=utf-8
@@ -29,7 +32,7 @@ set ambiwidth=double
 
 " indent settings
 set autoindent
-set smartindent
+"set smartindent
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -43,7 +46,7 @@ set list
 " emphasize brackets
 set showmatch matchtime=1
 
-" sprit settings
+" window sprit settings
 set splitright
 set splitbelow
 
@@ -77,5 +80,36 @@ set laststatus=2
 set visualbell t_vb=
 set noerrorbells
 
+" move a cursor by displaying line
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up>   gk
+
+" completion of brackets
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
+vnoremap { "zdi^V{<C-R>z}<ESC>
+vnoremap [ "zdi^V[<C-R>z]<ESC>
+vnoremap ( "zdi^V(<C-R>z)<ESC>
+vnoremap " "zdi^V"<C-R>z^V"<ESC>
+vnoremap ' "zdi'<C-R>z'<ESC>
+
 " colorscheme
-colorscheme industry
+colorscheme darkblue
+
+"#------------------#
+"# filetype setting #
+"#------------------#"
+
+" enable filetype
+filetype plugin on
+filetype indent on
+
+" define filetype from filename
+autocmd BufNewFile,BufRead *.rb setfiletype ruby
+autocmd FileType ruby
+    \   set shiftwidth=2 softtabstop=2 expandtab
