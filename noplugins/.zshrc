@@ -68,18 +68,18 @@ alias open="xdg-open"
 #--------------------
 
 # gvm
-[[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
+# [[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
 
 # golang
 export GOPATH=$HOME/.golang
 export PATH=$HOME/.golang:$PATH
 
 # rbenv
-export PATH=$"$PATH:$HOME/.rbenv/bin"
-eval "$(rbenv init -)"
+# export PATH=$"$PATH:$HOME/.rbenv/bin"
+# eval "$(rbenv init -)"
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PATH:$PYENV_ROOT/bin:"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PATH:$PYENV_ROOT/bin:"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"

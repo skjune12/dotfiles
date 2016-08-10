@@ -72,6 +72,9 @@ call dein#begin(expand('$HOME/.cache/dein'))
 
     " syntax check
     call dein#add('scrooloose/syntastic')
+
+    " golang for vim
+    call dein#add('fatih/vim-go')
 call dein#end()
 
 " if non-installed plugin exists
@@ -117,7 +120,7 @@ set smarttab
 
 " show invisible words
 set list
-:set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " emphasize brackets
 set showmatch matchtime=1
@@ -266,7 +269,9 @@ let g:quickrun_config = {
             \   '*': {'hook/time/enable': '1'},
             \}
 
+"-----------
 " syntastic
+"-----------
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -275,6 +280,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_mode_map = { 'mode': 'passive',
+            \ 'active_filetypes': ['go'] }
+let g:syntastic_go_checkers = ['go', 'golint']
 
 "------------
 " neosnippet
@@ -322,3 +331,14 @@ inoremap <expr><TAB> pumvisible() ?
 inoremap <expr><C-Tab> pumvisible() ? 
             \   "\<Up>"
             \   :"\<C-Tab>"
+
+"--------
+" vim-go
+"--------
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
