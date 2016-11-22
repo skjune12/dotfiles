@@ -1,100 +1,93 @@
-# highlighting ls
-autoload colors
-colors
+#------------------
+# Default Settings
+#------------------
 
-# completion
-autoload -U compinit
-compinit
-zstyle ':completion:*' list-colors "${LS_COLORS}"
+# Set up the prompt
 
-# keybind
+autoload -Uz promptinit
+promptinit
+prompt walters
+
+setopt histignorealldups sharehistory
+
+# Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# history
+# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
 HISTFILE=~/.zsh_history
-HISTSIZE=999
-SAVEHIST=999
-setopt hist_ignore_dups
-setopt share_history
 
-# cd
-setopt auto_cd
-setopt auto_pushd
+# Use modern completion system
+autoload -Uz compinit
+compinit
 
-# prompt
-case ${USERNAME} in
-    'root')
-        # when user is root
-        PROMPT="%B[%!] %F{red}%n@%m%f%b: %~
-# "
-        ;;
-    *)
-        # when user is general user
-        PROMPT="%B[%!] %F{green}%n@%m%f%b: %~
-$ "
-;;
-esac
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
 
-# git
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# show vcs info
 autoload -Uz vcs_info
-RPROMPT="%1(v|%B%F{yellow}%1v%f%b|)"
-
-zstyle ':vcs_info:*' formats '[%b]'
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
+precmd () { vcs_info }
+RPROMPT=$RPROMPT' ${vcs_info_msg_0_}'
+
+# alias
+alias ls="ls -h --color=auto"
+alias ll="ls -l"
+alias la="ls -la"
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+alias open="xdg-open"
+
+#-----------------------------------
+# thirdparty software configuration
+#-----------------------------------
 
 # tmux
 [[ $TMUX = "" ]] && export TERM="xterm-256color"
 
-# neovim
-export XDG_CONFIG_HOME=~/.config
-
-
-#-------
-# alias
-#-------
-
-# color setting
-alias ls="ls -h --color=auto"
-alias grep="grep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
-alias ll="ls -l"
-alias la="ls -lah"
-
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
-
-if [ "$(uname)" = "Linux" ]; then
-    alias open="xdg-open"
-    alias pbcopy="xsel --clipboard --input"
-fi
 
 #--------------------
 # version management
 #--------------------
 
 # gvm
-[[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
+# [[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
 
 # golang
 export GOPATH=$HOME/.golang
 export PATH=$HOME/.golang:$PATH
 
 # rbenv
-export PATH=$"$PATH:$HOME/.rbenv/bin"
-eval "$(rbenv init -)"
+# export PATH=$"$PATH:$HOME/.rbenv/bin"
+# eval "$(rbenv init -)"
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PATH:$PYENV_ROOT/bin:"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-# echo
-echo "(*'-') < Hello, `whoami`"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PATH:$PYENV_ROOT/bin:"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
