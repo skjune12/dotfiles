@@ -70,6 +70,9 @@ alias open="xdg-open"
 # gvm
 # [[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
 
+# tmux
+[[ $TMUX = "" ]] && export TERM="xterm-256color"
+
 # golang
 export GOPATH=$HOME/.golang
 export PATH=$HOME/.golang:$PATH
