@@ -178,8 +178,8 @@ nnoremap <Up>   gk
 " vnoremap ' "zdi'<C-R>z'<ESC>
 
 " colorscheme
-colorscheme maui
-set background=dark
+colorscheme 256_noir
+"set background=dark
 
 "#------------------#
 "# filetype setting #
@@ -189,6 +189,8 @@ set background=dark
 autocmd BufNewFile,BufRead *.rb setfiletype ruby
 autocmd FileType ruby
     \   set shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType c
+    \   set shiftwidth=8 softtabstop=8 expandtab
 
 "#-----------------#
 "# plugin settings #
