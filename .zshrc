@@ -27,7 +27,7 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+# eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -41,27 +41,40 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # show vcs info
+autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+function _vcs_precmd () {
+    LANG=en_US.UTF-8 vcs_info
+}
+add-zsh-hook precmd _vcs_precmd
+
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
 RPROMPT=$RPROMPT' ${vcs_info_msg_0_}'
 
+# autoload -Uz vcs_info
+# zstyle ':vcs_info:*' enable git svn
+# precmd() {
+#     vcs_info
+# }
+
+
 # alias
-alias ls="ls -h --color=auto"
-alias ll="ls -l"
-alias la="ls -la"
-alias grep="grep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
-alias open="xdg-open"
+# alias ls="ls -h --color=auto"
+# alias ll="ls -l"
+# alias la="ls -la"
+# alias grep="grep --color=auto"
+# alias fgrep="fgrep --color=auto"
+# alias egrep="egrep --color=auto"
+# alias rm="rm -i"
+# alias mv="mv -i"
+# alias cp="cp -i"
+# alias open="xdg-open"
 
 #-----------------------------------
 # thirdparty software configuration
@@ -80,7 +93,7 @@ alias open="xdg-open"
 
 # golang
 export GOPATH=$HOME/.golang
-export PATH=$HOME/.golang:$PATH
+export PATH=$HOME/.golang/bin:$PATH
 
 # rbenv
 # export PATH=$"$PATH:$HOME/.rbenv/bin"

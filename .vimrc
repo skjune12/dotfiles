@@ -112,10 +112,10 @@ set ambiwidth=double
 " indent settings
 set autoindent
 "set smartindent
+set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
 set smarttab
 
 " show invisible words
@@ -178,8 +178,12 @@ nnoremap <Up>   gk
 " vnoremap ' "zdi'<C-R>z'<ESC>
 
 " colorscheme
-colorscheme 256_noir
+colorscheme badwolf
 "set background=dark
+
+" ctags
+nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>")
 
 "#------------------#
 "# filetype setting #
@@ -191,6 +195,8 @@ autocmd FileType ruby
     \   set shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c
     \   set shiftwidth=8 softtabstop=8 expandtab
+autocmd FileType yaml
+    \   set shiftwidth=2 softtabstop=2 expandtab
 
 "#-----------------#
 "# plugin settings #
