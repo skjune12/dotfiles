@@ -63,18 +63,26 @@ RPROMPT=$RPROMPT' ${vcs_info_msg_0_}'
 #     vcs_info
 # }
 
-
-# alias
-# alias ls="ls -h --color=auto"
-# alias ll="ls -l"
-# alias la="ls -la"
-# alias grep="grep --color=auto"
-# alias fgrep="fgrep --color=auto"
-# alias egrep="egrep --color=auto"
-# alias rm="rm -i"
-# alias mv="mv -i"
-# alias cp="cp -i"
-# alias open="xdg-open"
+case "${OSTYPE}" in
+darwin*)
+    export LSCOLORS=gxfxcxdxbxegexabagacad
+    alias ls="ls -hG"
+    alias ll="ls -lG"
+    alias la="ls -laG"
+    ;;
+linux*)
+    alias ls="ls -h --color=auto"
+    alias ll="ls -l"
+    alias la="ls -la"
+    alias grep="grep --color=auto"
+    alias fgrep="fgrep --color=auto"
+    alias egrep="egrep --color=auto"
+    alias rm="rm -i"
+    alias mv="mv -i"
+    alias cp="cp -i"
+    alias open="xdg-open"
+;;
+esac
 
 #-----------------------------------
 # thirdparty software configuration
@@ -82,7 +90,7 @@ RPROMPT=$RPROMPT' ${vcs_info_msg_0_}'
 
 # tmux
 [[ $TMUX = "" ]] && export TERM="xterm-256color"
-
+export PATH=$HOME/.tmux/bin:$PATH
 
 #--------------------
 # version management
@@ -100,7 +108,11 @@ export PATH=$HOME/.golang/bin:$PATH
 # eval "$(rbenv init -)"
 
 # pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PATH:$PYENV_ROOT/bin:"
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PATH:$PYENV_ROOT/bin:"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin brew"
+
+# Homebrew
+# export PATH="/usr/local/sbin:$PATH"

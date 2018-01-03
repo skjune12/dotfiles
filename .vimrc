@@ -43,6 +43,7 @@ call dein#begin(expand('$HOME/.cache/dein'))
     call dein#add('pbrisbin/vim-colors-off')    " off
     call dein#add('zsoltf/vim-maui')            " maui
     call dein#add('andreasvc/vim-256noir')      " 256noir
+    call dein#add('altercation/vim-colors-solarized')   " solarized
 
     " vimproc
     call dein#add('Shougo/vimproc', {
@@ -75,6 +76,10 @@ call dein#begin(expand('$HOME/.cache/dein'))
 
     " golang for vim
     call dein#add('fatih/vim-go')
+
+    " tagbar
+    call dein#add('majutsushi/tagbar')
+    call dein#add('szw/vim-tags')
 call dein#end()
 
 " if non-installed plugin exists
@@ -159,6 +164,9 @@ set laststatus=2
 set visualbell t_vb=
 set noerrorbells
 
+" tagjump
+set tags=./tags
+
 " move a cursor by displaying line
 nnoremap j gj
 nnoremap k gk
@@ -178,8 +186,8 @@ nnoremap <Up>   gk
 " vnoremap ' "zdi'<C-R>z'<ESC>
 
 " colorscheme
-colorscheme badwolf
-"set background=dark
+colorscheme maui
+set background=dark
 
 " ctags
 nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
@@ -197,6 +205,8 @@ autocmd FileType c
     \   set shiftwidth=8 softtabstop=8 expandtab
 autocmd FileType yaml
     \   set shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType go
+    \   set shiftwidth=4 tabstop=4 noexpandtab
 
 "#-----------------#
 "# plugin settings #
@@ -350,3 +360,35 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+"------------
+" Vim Tagbar
+"------------
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
