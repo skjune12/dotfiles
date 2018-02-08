@@ -5,8 +5,19 @@
 # Set up the prompt
 
 autoload -Uz promptinit
+autoload -Uz colors
 promptinit
-prompt walters
+
+case ${UID} in
+0)
+    PROMPT='%n@%U%m%u# '
+    RPROMPT='%F{green}%d%f'
+    ;;
+*)
+    PROMPT='%n@%U%m%u> '
+    RPROMPT='%F{green}%d%f'
+    ;;
+esac
 
 setopt histignorealldups sharehistory
 
@@ -27,7 +38,6 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-# eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -115,4 +125,4 @@ eval "$(pyenv virtualenv-init -)"
 alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin brew"
 
 # Homebrew
-# export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
