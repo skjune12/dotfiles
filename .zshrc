@@ -65,7 +65,7 @@ zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-RPROMPT=$RPROMPT' ${vcs_info_msg_0_}'
+RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
 # autoload -Uz vcs_info
 # zstyle ':vcs_info:*' enable git svn
@@ -111,7 +111,7 @@ export PATH=$HOME/.tmux/bin:$PATH
 
 # golang
 export GOPATH=$HOME/.golang
-export PATH=$HOME/.golang/bin:$PATH
+export PATH=$PATH:$HOME/.golang/bin
 
 # rbenv
 # export PATH=$"$PATH:$HOME/.rbenv/bin"
@@ -126,3 +126,20 @@ alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin br
 
 # Homebrew
 export PATH="/usr/local/sbin:$PATH"
+
+# peco + ghq
+setopt hist_ignore_all_dups
+
+function peco_select_history() {
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+zle -N peco_select_history
+bindkey '^r' peco_select_history

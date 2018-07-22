@@ -124,8 +124,8 @@ set softtabstop=4
 set smarttab
 
 " show invisible words
-set list
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+"set list
+"set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " emphasize brackets
 set showmatch matchtime=1
@@ -186,7 +186,7 @@ nnoremap <Up>   gk
 " vnoremap ' "zdi'<C-R>z'<ESC>
 
 " colorscheme
-colorscheme maui
+colorscheme 256_noir
 set background=dark
 
 " ctags
@@ -300,8 +300,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_mode_map = { 'mode': 'passive',
-            \ 'active_filetypes': ['go'] }
+            \ 'active_filetypes': ['go', 'python'] }
 let g:syntastic_go_checkers = ['go', 'golint']
+let g:syntastic_python_checkers = ["flake8"]
 
 "------------
 " neosnippet
