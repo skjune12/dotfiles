@@ -62,6 +62,10 @@ call dein#begin(expand('$HOME/.cache/dein'))
     " show indent line
     call dein#add('yggdroot/indentLine')
 
+    " vim-json
+    call dein#add('elzr/vim-json')
+    let g:vim_json_syntax_conceal = 0
+
     " complement & snippets
     call dein#add('Shougo/neocomplcache')
     call dein#add('Shougo/neosnippet')
@@ -186,7 +190,7 @@ nnoremap <Up>   gk
 " vnoremap ' "zdi'<C-R>z'<ESC>
 
 " colorscheme
-colorscheme 256_noir
+colorscheme maui
 set background=dark
 
 " ctags
@@ -361,6 +365,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
 
 "------------
 " Vim Tagbar

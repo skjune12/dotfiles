@@ -67,12 +67,6 @@ zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-# autoload -Uz vcs_info
-# zstyle ':vcs_info:*' enable git svn
-# precmd() {
-#     vcs_info
-# }
-
 case "${OSTYPE}" in
 darwin*)
     export LSCOLORS=gxfxcxdxbxegexabagacad
@@ -106,16 +100,9 @@ export PATH=$HOME/.tmux/bin:$PATH
 # version management
 #--------------------
 
-# gvm
-# [[ -s "/home/jingle/.gvm/scripts/gvm" ]] && source "/home/jingle/.gvm/scripts/gvm"
-
 # golang
 export GOPATH=$HOME/.golang
 export PATH=$PATH:$HOME/.golang/bin
-
-# rbenv
-# export PATH=$"$PATH:$HOME/.rbenv/bin"
-# eval "$(rbenv init -)"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
